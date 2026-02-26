@@ -11,10 +11,6 @@ export const AppEndpoints = {
         url: `/3/movie/${movieId}/credits`,
         method: 'GET',
     }),
-    popularMovies: {
-        url: '/3/discover/movie?include_adult=false&include_video=True&language=en-US&page=1&sort_by=popularity.desc',
-        method: 'GET',
-    },
     nowPlayingMovie: (page: number = 1) => ({
         url: `/3/movie/now_playing?language=en-US&page=${page}`,
         method: 'GET',

@@ -1,16 +1,16 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import React from 'react';
-import { useColorScheme } from 'react-native';
-import { NativeTabs } from 'expo-router/unstable-native-tabs';
+import { useColorScheme, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { NativeTabs } from 'expo-router/unstable-native-tabs';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { store } from '@/store';
 import '../i18n/index'
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={styles.flex}>
       <Provider store={store}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <NativeTabs>
@@ -27,3 +27,9 @@ export default function TabLayout() {
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1
+  }
+})

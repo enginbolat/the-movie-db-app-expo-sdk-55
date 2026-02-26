@@ -5,7 +5,6 @@ import { NativeViewGestureHandler } from 'react-native-gesture-handler';
 import { Popular } from '@/models';
 import { MovieCard } from '@/components';
 import { styles } from './content-list.styles';
-import { useTranslation } from 'react-i18next';
 
 type Props = {
   data: Popular[],
@@ -16,7 +15,6 @@ type Props = {
 }
 
 export function ContentList({ data, isLoading, title, handlerRef, simultaneousHandlers }: Props) {
-  const { t } = useTranslation();
 
   const renderItem = useCallback(({ item }: { item: Popular }) => <MovieCard item={item} onPress={() => { }} />, [],);
 
@@ -33,7 +31,7 @@ export function ContentList({ data, isLoading, title, handlerRef, simultaneousHa
           accessibilityLabel="Item List"
           style={styles.list}
           data={data}
-          keyExtractor={(_, index) => index.toString()}
+          keyExtractor={(item) => item.id.toString()}
           ListEmptyComponent={isLoading ? <ActivityIndicator /> : undefined}
           horizontal
           estimatedItemSize={160}
