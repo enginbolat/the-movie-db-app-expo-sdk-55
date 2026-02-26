@@ -1,0 +1,12 @@
+{
+  "tabs": {
+    "home": "Ana Sayfa"
+  },
+  "home": {
+    "popular_content": "Popüler İçerik"
+  },
+  "common": {
+    "empty": "Sonuç bulunamadı",
+    "error": "Bir şeyler yanlış gitti"
+  }
+}

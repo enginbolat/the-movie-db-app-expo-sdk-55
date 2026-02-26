@@ -1,0 +1,12 @@
+{
+  "tabs": {
+    "home": "Home"
+  },
+  "home": {
+    "popular_content": "Popular Content"
+  },
+  "common": {
+    "empty": "No results found",
+    "error": "Something went wrong"
+  }
+}
