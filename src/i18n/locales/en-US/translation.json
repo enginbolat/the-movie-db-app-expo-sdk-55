@@ -3,7 +3,9 @@
     "home": "Home"
   },
   "home": {
-    "popular_content": "Popular Content"
+    "popular_content": "Popular Content",
+    "now_playing_content": "Now Playing",
+    "upcoming_movies": "Upcoming Movies"
   },
   "common": {
     "empty": "No results found",

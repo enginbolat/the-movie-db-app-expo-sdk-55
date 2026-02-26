@@ -3,7 +3,9 @@
     "home": "Ana Sayfa"
   },
   "home": {
-    "popular_content": "Popüler İçerik"
+    "popular_content": "Popüler İçerik",
+    "now_playing_content": "Vizyonda",
+    "upcoming_movies": "Gelecek Filmler"
   },
   "common": {
     "empty": "Sonuç bulunamadı",

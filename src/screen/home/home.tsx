@@ -1,27 +1,66 @@
-import { View, Text } from 'react-native';
+import { useRef } from 'react';
+import { View, Text, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useGetPopularContentQuery } from '@/hooks/use-movie-request';
+import { NativeViewGestureHandler } from 'react-native-gesture-handler';
+import { useTranslation } from 'react-i18next';
+import { useGetPopularContentQuery, useNowPlayingMovieQuery, useUpcomingMovieQuery } from '@/hooks/use-movie-request';
 import { styles } from './home.styles';
-import { PopularContent } from './components/popular-content/popular-content';
+import { ContentList } from './components/content-list/content-list';
 
 export default function HomeScreen() {
-    const { data, isLoading, error } = useGetPopularContentQuery()
+    const { t } = useTranslation()
 
-    if (error) {
-        return <Text accessibilityLabel='Error message'>{JSON.stringify(error)}</Text>
-    }
+    const popularRef = useRef<NativeViewGestureHandler>(null);
+    const nowPlayingRef = useRef<NativeViewGestureHandler>(null);
+    const upcomingRef = useRef<NativeViewGestureHandler>(null);
 
-    if (!data?.results) {
-        return <Text accessibilityLabel='No results found'>Empty</Text>
+    const { data: popularContentData, isLoading: popularLoading, error: popularError } = useGetPopularContentQuery();
+    const { data: nowPlayingContentData, isLoading: nowPlayingLoading, error: nowError } = useNowPlayingMovieQuery(1);
+    const { data: upcomingMovies, isLoading: upcomingMovieLoading, error: upcomingError } = useUpcomingMovieQuery(1);
+
+    const errorMessage = popularError || nowError || upcomingError
+    const isLoading = popularLoading || nowPlayingLoading || upcomingMovieLoading
+
+    if (popularError || nowError || upcomingError) {
+        return (
+            <Text accessibilityLabel="Error message">
+                {JSON.stringify(errorMessage)}
+            </Text>
+        );
     }
 
     return (
-        <View style={styles.container}>
-            <SafeAreaView style={styles.container}>
-                <View style={styles.col}>
-                    <PopularContent data={data.results} isLoading={isLoading} />
-                </View>
-            </SafeAreaView>
-        </View>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        horizontal={false}
+        showsHorizontalScrollIndicator={false}
+        nestedScrollEnabled
+      >
+        <SafeAreaView style={styles.centerAlignment}>
+          <View style={styles.col}>
+            <ContentList
+              title={t("home.popular_content")}
+              data={popularContentData?.results!}
+              isLoading={isLoading}
+              handlerRef={popularRef}
+              simultaneousHandlers={[nowPlayingRef, upcomingRef]}
+            />
+            <ContentList
+              title={t("home.now_playing_content")}
+              data={nowPlayingContentData?.results!}
+              isLoading={isLoading}
+              handlerRef={nowPlayingRef}
+              simultaneousHandlers={[popularRef, upcomingRef]}
+            />
+            <ContentList
+              title={t("home.upcoming_movies")}
+              data={upcomingMovies?.results!}
+              isLoading={isLoading}
+              handlerRef={upcomingRef}
+              simultaneousHandlers={[popularRef, nowPlayingRef]}
+            />
+          </View>
+        </SafeAreaView>
+      </ScrollView>
     );
 }

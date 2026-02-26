@@ -13,8 +13,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     list: {
-        flex: 1,
-        flexDirection: "column",
+        height: 240,
     },
     itemSeperator: {
         width: 8,
