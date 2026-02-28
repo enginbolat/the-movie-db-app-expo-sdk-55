@@ -1,15 +1,22 @@
 const { defineConfig } = require('eslint/config')
 const expoConfig = require('eslint-config-expo/flat')
 const unusedImports = require('eslint-plugin-unused-imports')
+const prettierPlugin = require('eslint-plugin-prettier')
+const prettierConfig = require('eslint-config-prettier')
 
 module.exports = defineConfig([
   ...expoConfig,
+  prettierConfig,
   {
     plugins: {
       'unused-imports': unusedImports,
+      'prettier': prettierPlugin,
     },
     rules: {
-      // Noktalı virgül yasak
+      // Prettier ihlallerini error olarak göster
+      'prettier/prettier': 'error',
+
+      // Noktalı virgül yasak (prettier ile sync)
       'semi': ['error', 'never'],
 
       // any type yasak
