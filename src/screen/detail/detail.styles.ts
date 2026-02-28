@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { scale, scaleHeight, scaleWidth } from '@/utils/responsive-helper';
 
 export const styles = StyleSheet.create({
   scroll: {
@@ -6,37 +7,41 @@ export const styles = StyleSheet.create({
   },
   poster: {
     width: '100%',
-    height: 560,
-    backgroundColor: 'white'
+    height: scaleHeight(560),
+    backgroundColor: 'white',
   },
   content: {
-    padding: 20,
-    gap: 12,
+    padding: scale(20),
+    gap: scale(12),
   },
   title: {
-    fontSize: 24,
+    fontSize: scale(24),
     fontWeight: '700',
   },
   tagline: {
-    fontSize: 15,
+    fontSize: scale(15),
     fontStyle: 'italic',
     color: '#888',
   },
   overview: {
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: scale(14),
+    lineHeight: scaleHeight(22),
   },
   row: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 4,
+    gap: scale(4),
   },
   label: {
     fontWeight: '600',
   },
   centered: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  alignmentCenter: {
     justifyContent: 'center',
     alignItems: 'center',
   },

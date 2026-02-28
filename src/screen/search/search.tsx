@@ -9,15 +9,19 @@ import SearchBar from "@/components/search-bar/search-bar";
 import { MutlSearch } from "@/models/multi-search";
 import { handleImageUrl } from "@/utils/image-helper";
 import { styles } from "./search.styles";
+import HorizontalMovieCard from "./components/horizontal-movie-card/horizontal-movie-card";
+import Spacer from "@/components/spacer/spacer";
+import useDebounce from "@/hooks/use-debounce";
 
 export default function Search() {
     const [searchTerm, setSearchTerm] = useState('')
+    const debouncedSearchTerm = useDebounce(searchTerm, 500)
     const [page, setPage] = useState(1)
-    const { data, isLoading } = useSearchContentQuery({ searchTerm, page }, { skip: !searchTerm })
+    const { data, isLoading } = useSearchContentQuery({ searchTerm: debouncedSearchTerm, page }, { skip: !debouncedSearchTerm })
 
     useEffect(() => {
         setPage(1)
-    }, [searchTerm])
+    }, [debouncedSearchTerm])
 
 
     const handleOnEndReached = () => {
@@ -26,25 +30,9 @@ export default function Search() {
         }
     }
 
-    const renderItem = ({ item }: { item: MutlSearch }) => {
-        return (
-            <Link href={`/movie/${item.id}`} asChild>
-                <Pressable style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                    <Link.AppleZoom>
-                        <Image
-                            transition={60}
-                            contentFit="cover"
-                            style={{ height: 128, width: 100 }}
-                            contentPosition="center"
-                            source={{ uri: handleImageUrl(item.backdrop_path ?? "") }}
-                            accessibilityLabel={`${item.title} poster`}
-                        />
-                    </Link.AppleZoom>
-                    <Text>{item?.original_name || item?.original_title}</Text>
-                </Pressable>
-            </Link>
-        );
-    }
+    const renderItem = ({ item }: { item: MutlSearch }) => (
+      <HorizontalMovieCard item={item} />
+    );
 
     return (
         <SafeAreaView style={styles.container}>
@@ -59,7 +47,7 @@ export default function Search() {
                 data={data?.results}
                 renderItem={renderItem}
                 ListEmptyComponent={() => <Text>Bir Sonuç Bulunamadı</Text>}
-                ItemSeparatorComponent={() => <View style={{ marginVertical: 4 }} />}
+                ItemSeparatorComponent={() => <Spacer vertical={4} />}
                 onEndReachedThreshold={0.4}
                 onEndReached={handleOnEndReached}
                 ListFooterComponent={isLoading ? <ActivityIndicator /> : null}

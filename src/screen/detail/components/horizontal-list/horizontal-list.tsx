@@ -3,6 +3,7 @@ import { Image, ImageContentFit } from 'expo-image';
 import { Gesture, GestureDetector, NativeGesture } from 'react-native-gesture-handler';
 import { Text, View } from 'react-native';
 import { styles } from './horizontal-list.styles';
+import Spacer from '@/components/spacer/spacer';
 
 type Props<T> = {
   data: T[] | undefined;
@@ -30,25 +31,25 @@ export default function HorizontalList<T>({
       <View style={styles.castItemContainer}>
         {imageSource
           ? <Image
-              transition={500}
-              contentFit={imageContentFit ?? 'cover'}
-              style={styles.smallImage}
-              contentPosition='center'
-              source={{ uri: imageSource }}
-              accessibilityLabel={getName(item)}
-            />
+            transition={500}
+            contentFit={imageContentFit ?? 'cover'}
+            style={styles.smallImage}
+            contentPosition='center'
+            source={{ uri: imageSource }}
+            accessibilityLabel={getName(item)}
+          />
           : <View style={[styles.smallImage, styles.smallImageColor]} />
         }
-        <View style={{ marginTop: 8, gap: 2 }}>
-          <Text style={{ width: 128 }}>{getName(item)}</Text>
-          {getSubtitle && <Text style={{ width: 128 }}>{getSubtitle(item)}</Text>}
+        <View style={styles.textCol}>
+          <Text style={styles.textWidth}>{getName(item)}</Text>
+          {getSubtitle && <Text style={styles.textWidth}>{getSubtitle(item)}</Text>}
         </View>
       </View>
     );
   };
 
   return (
-    <View style={{ gap: 12 }}>
+    <View style={styles.g12}>
       <View style={styles.castListContainer}>
         <Text>{title}</Text>
       </View>
@@ -60,7 +61,7 @@ export default function HorizontalList<T>({
           keyExtractor={(_, index) => index.toString()}
           contentContainerStyle={styles.horizontalListContentContainer}
           renderItem={renderItem}
-          ItemSeparatorComponent={() => <View style={{ marginRight: 12 }} />}
+          ItemSeparatorComponent={() => <Spacer right={12} />}
         />
       </GestureDetector>
     </View>

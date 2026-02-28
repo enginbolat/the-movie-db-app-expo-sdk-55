@@ -1,19 +1,20 @@
 import { StyleSheet } from "react-native"
+import { scale, scaleHeight, scaleWidth } from "@/utils/responsive-helper"
 
 export const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         alignItems: "center",
-        gap: 8,
+        gap: scale(8),
     },
     image: {
-        width: 160,
-        height: 200,
-        borderRadius: 8
+        width: scaleWidth(160),
+        height: scaleHeight(200),
+        borderRadius: scale(8),
     },
     text: {
-        maxWidth: 140,
+        maxWidth: scaleWidth(140),
         overflow: "hidden",
-        textAlign: "center"
+        textAlign: "center",
     }
 })

@@ -1,17 +1,18 @@
 import { StyleSheet } from "react-native"
+import { scale, scaleHeight, scaleWidth } from "@/utils/responsive-helper"
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: scale(8),
   },
   image: {
-    height: 128,
-    width: 100
+    height: scaleHeight(128),
+    width: scaleWidth(100),
   },
   imageBgColor: {
     backgroundColor: 'gray',
-    opacity: 0.7
+    opacity: 0.7,
   }
 });

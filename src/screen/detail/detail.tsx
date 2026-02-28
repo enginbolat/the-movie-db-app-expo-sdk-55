@@ -8,8 +8,9 @@ import { Gesture } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HorizontalList } from './components';
 import { styles } from './detail.styles';
+import { FlashList } from '@shopify/flash-list';
 
-const LabelAndDescription = ({ label, desc }: { label: string; desc: string }) => (
+const LabelAndDescription = ({ label, desc }: { label?: string; desc?: string }) => (
   <View style={styles.row}>
     <Text style={styles.label}>{label}</Text>
     <Text>{desc}</Text>
@@ -63,7 +64,14 @@ export default function DetailScreen() {
           <LabelAndDescription label='Rating:' desc={`${data.vote_average.toFixed(1)} (${data.vote_count} votes)`} />
           <LabelAndDescription label='Runtime:' desc={`${data.runtime} min`} />
           {data.genres?.length > 0 && (
-            <LabelAndDescription label='Genres:' desc={data.genres.map(g => g.name).join(', ')} />
+            <FlashList
+              ListHeaderComponent={<Text style={styles.label}>Genres:</Text>}
+              keyExtractor={(item, index) => `${item.name}-${index}`}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => <LabelAndDescription desc={item.name} />}
+              data={data.genres}
+            />
           )}
         </View>
         <HorizontalList

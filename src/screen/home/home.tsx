@@ -46,22 +46,16 @@ export default function HomeScreen() {
             title={t("home.popular_content")}
             data={popularContentData?.results ?? []}
             isLoading={isLoading}
-            handlerRef={popularRef}
-            simultaneousHandlers={popularHandlers}
           />
           <ContentList
             title={t("home.now_playing_content")}
             data={nowPlayingContentData?.results ?? []}
             isLoading={isLoading}
-            handlerRef={nowPlayingRef}
-            simultaneousHandlers={nowPlayingHandlers}
           />
           <ContentList
             title={t("home.upcoming_movies")}
             data={upcomingMovies?.results ?? []}
             isLoading={isLoading}
-            handlerRef={upcomingRef}
-            simultaneousHandlers={upcomingHandlers}
           />
         </View>
       </SafeAreaView>

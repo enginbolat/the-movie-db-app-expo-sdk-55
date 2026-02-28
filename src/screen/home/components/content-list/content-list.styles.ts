@@ -1,21 +1,22 @@
 import { StyleSheet } from 'react-native'
+import { scale, scaleHeight, scaleWidth } from '@/utils/responsive-helper'
 
 export const styles = StyleSheet.create({
     title: {
-        fontSize: 24,
-        fontWeight: '600'
+        fontSize: scale(24),
+        fontWeight: '600',
     },
     col: {
         flexDirection: "column",
-        gap: 12
+        gap: scale(12),
     },
     ph20: {
-        paddingHorizontal: 20,
+        paddingHorizontal: scaleWidth(20),
     },
     list: {
-        height: 240,
+        height: scaleHeight(240),
     },
     itemSeperator: {
-        width: 8,
+        width: scaleWidth(8),
     },
 });

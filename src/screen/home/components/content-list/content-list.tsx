@@ -1,7 +1,7 @@
 import { useCallback, RefObject } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native'
 import { FlashList } from '@shopify/flash-list';
-import { NativeViewGestureHandler } from 'react-native-gesture-handler';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { router } from 'expo-router';
 import { Popular } from '@/models';
 import { MovieCard } from '@/components';
@@ -11,11 +11,9 @@ type Props = {
   data: Popular[],
   isLoading: boolean
   title: string
-  handlerRef?: RefObject<NativeViewGestureHandler | null>
-  simultaneousHandlers?: RefObject<NativeViewGestureHandler | null>[]
 }
 
-export function ContentList({ data, isLoading, title, handlerRef, simultaneousHandlers }: Props) {
+export function ContentList({ data, isLoading, title }: Props) {
 
   const renderItem = useCallback(({ item }: { item: Popular }) => (
     <MovieCard item={item} onPress={(movie) => router.push(`/movie/${movie.id}`)} />
@@ -29,7 +27,7 @@ export function ContentList({ data, isLoading, title, handlerRef, simultaneousHa
       >
         {title}
       </Text>
-      <NativeViewGestureHandler ref={handlerRef} simultaneousHandlers={simultaneousHandlers}>
+      <GestureDetector gesture={Gesture.Native()}>
         <FlashList
           accessibilityLabel="Item List"
           style={styles.list}
@@ -43,7 +41,7 @@ export function ContentList({ data, isLoading, title, handlerRef, simultaneousHa
           renderItem={renderItem}
           ItemSeparatorComponent={() => <View style={styles.itemSeperator} />}
         />
-      </NativeViewGestureHandler>
+      </GestureDetector>
     </>
   );
 }

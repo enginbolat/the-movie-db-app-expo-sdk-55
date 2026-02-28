@@ -37,7 +37,7 @@ export function MovieCard({ item, onPress }: MovieCardProps) {
           { opacity: pressed ? 0.8 : 1 },
         ]}
         onPress={() => onPress(item)}
-        accessibilityLabel={item.title}
+        accessibilityLabel={`View ${item.title} details`}
         accessibilityRole="button"
       >
         <Link.AppleZoom>

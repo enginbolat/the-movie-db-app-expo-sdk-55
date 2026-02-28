@@ -1,21 +1,22 @@
 import { StyleSheet } from 'react-native'
+import { scale, scaleHeight, scaleWidth } from '@/utils/responsive-helper'
 
 export const styles = StyleSheet.create({
     container: {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "row",
-        borderRadius: 8,
+        borderRadius: scale(8),
         borderColor: "gray",
         borderWidth: 1,
-        height: 34,
-        paddingHorizontal: 8,
-        gap: 8
+        height: scaleHeight(34),
+        paddingHorizontal: scaleWidth(8),
+        gap: scale(8),
     },
     iconPlaceholder: {
         backgroundColor: "blue",
-        width: 24,
-        height: 24,
+        width: scale(24),
+        height: scale(24),
         borderRadius: 999,
     },
     input: {
