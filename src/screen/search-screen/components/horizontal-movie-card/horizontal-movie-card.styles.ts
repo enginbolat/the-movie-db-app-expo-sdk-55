@@ -8,11 +8,12 @@ export const styles = StyleSheet.create({
     gap: scale(8),
   },
   image: {
-    height: scaleHeight(128),
+    height: scaleHeight(132),
     width: scaleWidth(100),
+    borderRadius: 8
   },
   imageBgColor: {
     backgroundColor: 'gray',
     opacity: 0.7,
   }
-});
+})

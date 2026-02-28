@@ -11,4 +11,7 @@ export const styles = StyleSheet.create({
   mh20: {
     marginHorizontal: scaleWidth(20),
   },
-});
+  mb12: {
+    marginBottom: 12
+  }
+})

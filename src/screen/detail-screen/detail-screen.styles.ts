@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { scale, scaleHeight, scaleWidth } from '@/utils/responsive-helper';
+import { StyleSheet } from 'react-native'
+import { scale, scaleHeight } from '@/utils/responsive-helper'
 
 export const styles = StyleSheet.create({
   scroll: {
@@ -45,4 +45,4 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-});
+})

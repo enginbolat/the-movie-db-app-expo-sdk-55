@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { scale, scaleWidth } from "@/utils/responsive-helper";
+import { StyleSheet } from "react-native"
+import { scale, scaleWidth } from "@/utils/responsive-helper"
 
 export const styles = StyleSheet.create({
   container: {
@@ -28,4 +28,4 @@ export const styles = StyleSheet.create({
   itemSeperator: {
     width: scaleWidth(8),
   },
-});
+})

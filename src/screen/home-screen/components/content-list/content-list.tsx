@@ -1,11 +1,11 @@
-import { useCallback, RefObject } from 'react';
+import { useCallback } from 'react'
 import { Text, View, ActivityIndicator } from 'react-native'
-import { FlashList } from '@shopify/flash-list';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { router } from 'expo-router';
-import { Popular } from '@/models';
-import { MovieCard } from '@/components';
-import { styles } from './content-list.styles';
+import { FlashList } from '@shopify/flash-list'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
+import { router } from 'expo-router'
+import { Popular } from '@/models'
+import { MovieCard } from '@/components'
+import { styles } from './content-list.styles'
 
 type Props = {
   data: Popular[],
@@ -17,7 +17,7 @@ export function ContentList({ data, isLoading, title }: Props) {
 
   const renderItem = useCallback(({ item }: { item: Popular }) => (
     <MovieCard item={item} onPress={(movie) => router.push(`/movie/${movie.id}`)} />
-  ), []);
+  ), [])
 
   return (
     <>
@@ -43,6 +43,6 @@ export function ContentList({ data, isLoading, title }: Props) {
         />
       </GestureDetector>
     </>
-  );
+  )
 }
 

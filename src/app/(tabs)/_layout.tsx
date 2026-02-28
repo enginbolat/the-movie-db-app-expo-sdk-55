@@ -1,4 +1,4 @@
-import { NativeTabs } from 'expo-router/unstable-native-tabs';
+import { NativeTabs } from 'expo-router/unstable-native-tabs'
 
 export default function TabLayout() {
   return (
@@ -19,5 +19,5 @@ export default function TabLayout() {
         />
       </NativeTabs.Trigger>
     </NativeTabs>
-  );
+  )
 }

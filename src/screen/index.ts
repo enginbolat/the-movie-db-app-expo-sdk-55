@@ -1,2 +1,1 @@
-export * from './home/home'
-// export * from './home/components'
+export { default as HomeScreen } from './home/home'

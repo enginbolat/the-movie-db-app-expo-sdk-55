@@ -1,9 +1,9 @@
-import { FlashList } from '@shopify/flash-list';
-import { Image, ImageContentFit } from 'expo-image';
-import { Gesture, GestureDetector, NativeGesture } from 'react-native-gesture-handler';
-import { Text, View } from 'react-native';
-import { styles } from './horizontal-list.styles';
-import Spacer from '@/components/spacer/spacer';
+import { FlashList } from '@shopify/flash-list'
+import { Image, ImageContentFit } from 'expo-image'
+import { Gesture, GestureDetector, NativeGesture } from 'react-native-gesture-handler'
+import { Text, View } from 'react-native'
+import { styles } from './horizontal-list.styles'
+import Spacer from '@/components/spacer/spacer'
 
 type Props<T> = {
   data: T[] | undefined;
@@ -25,7 +25,7 @@ export default function HorizontalList<T>({
   gesture,
 }: Props<T>) {
   const renderItem = ({ item }: { item: T }) => {
-    const imageSource = getImagePath(item);
+    const imageSource = getImagePath(item)
 
     return (
       <View style={styles.castItemContainer}>
@@ -45,8 +45,8 @@ export default function HorizontalList<T>({
           {getSubtitle && <Text style={styles.textWidth}>{getSubtitle(item)}</Text>}
         </View>
       </View>
-    );
-  };
+    )
+  }
 
   return (
     <View style={styles.g12}>
@@ -65,5 +65,5 @@ export default function HorizontalList<T>({
         />
       </GestureDetector>
     </View>
-  );
+  )
 }

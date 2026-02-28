@@ -1,26 +1,26 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import axios, { AxiosRequestConfig } from 'axios';
+import { createApi } from '@reduxjs/toolkit/query/react'
+import axios, { AxiosRequestConfig, isAxiosError } from 'axios'
 
 export type NetworkLog = {
   id: number;
   method?: string;
   type: 'request' | 'response' | 'error';
   url?: string;
-  data?: any;
+  data?: unknown;
   body?: object;
-  headers: any;
+  headers: Record<string, unknown>;
   date?: string;
 };
 
-export let requestLogs: NetworkLog[] = [];
-let idCounter = 0;
+export let requestLogs: NetworkLog[] = []
+let idCounter = 0
 
 const axiosInstance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-});
+})
 
 axiosInstance.interceptors.request.use(
   config => {
@@ -36,12 +36,12 @@ axiosInstance.interceptors.request.use(
         Authorization: `Bearer ${process.env.EXPO_PUBLIC_API_KEY}`,
       },
       date: new Date().toISOString(),
-    });
+    })
 
-    return config;
+    return config
   },
   error => Promise.reject(error),
-);
+)
 
 // RESPONSE interceptor
 axiosInstance.interceptors.response.use(
@@ -54,11 +54,11 @@ axiosInstance.interceptors.response.use(
       data: response.data,
       headers: {
         ...response.headers,
-        Authorization: `Bearer ${process.env.API_KEY}`,
+        Authorization: `Bearer ${process.env.EXPO_PUBLIC_API_KEY}`,
       },
       date: new Date().toISOString(),
-    });
-    return response.data;
+    })
+    return response.data
   },
   error => {
     requestLogs.push({
@@ -69,12 +69,12 @@ axiosInstance.interceptors.response.use(
       data: error.message,
       headers: error.headers,
       date: new Date().toISOString(),
-    });
-    return Promise.reject(error);
+    })
+    return Promise.reject(error)
   },
-);
+)
 
-export default axiosInstance;
+export default axiosInstance
 
 type IAxiosBaseQuery = {
   url: AxiosRequestConfig['url'];
@@ -97,20 +97,22 @@ const axiosBaseQuery =
             ...headers,
             Authorization: `Bearer ${process.env.EXPO_PUBLIC_API_KEY}`,
           },
-        });
-        return { data: result };
-      } catch (axiosError: any) {
-        const err = axiosError;
-        return {
-          error: {
-            status: err.response?.status,
-            data: err.response?.data || err.message,
-          },
-        };
+        })
+        return { data: result }
+      } catch (axiosError) {
+        if (isAxiosError(axiosError)) {
+          return {
+            error: {
+              status: axiosError.response?.status,
+              data: axiosError.response?.data || axiosError.message,
+            },
+          }
+        }
+        return { error: { status: undefined, data: 'Unknown error' } }
       }
-    };
+    }
 
 export const api = createApi({
   baseQuery: axiosBaseQuery(),
   endpoints: () => ({}),
-});
+})

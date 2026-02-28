@@ -1,3 +1,3 @@
-import SearchScreen from '@/screen/search/search';
+import SearchScreen from '@/screen/search-screen/search-screen'
 
-export default SearchScreen;
+export default SearchScreen

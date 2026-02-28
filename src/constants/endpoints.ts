@@ -23,4 +23,4 @@ export const AppEndpoints = {
         url: `/3/search/multi?query=${query}&include_adult=true&language=en-US&page=${page}`,
         method: 'GET',
     }),
-};
+}

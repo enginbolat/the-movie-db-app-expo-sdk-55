@@ -1,6 +1,6 @@
-import { View, TextInput, StyleProp, ViewStyle } from "react-native";
-import { styles } from "./search-bar.styles";
-import { JSX } from "react";
+import { View, TextInput, StyleProp, ViewStyle } from "react-native"
+import { styles } from "./search-bar.styles"
+import { JSX } from "react"
 
 type Props = {
   leadingComponent?: JSX.Element;
@@ -12,9 +12,9 @@ type Props = {
 };
 
 export default function SearchBar({
-  leadingComponent,
-  trailingComponent,
-  placeholder,
+  leadingComponent: _leadingComponent,
+  trailingComponent: _trailingComponent,
+  placeholder: _placeholder,
   onChangeText,
   value,
   style,
@@ -32,5 +32,5 @@ export default function SearchBar({
       <View style={styles.iconPlaceholder} />
       {/* {trailingComponent} */}
     </View>
-  );
+  )
 }

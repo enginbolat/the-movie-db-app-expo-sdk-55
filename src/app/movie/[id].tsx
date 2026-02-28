@@ -1,3 +1,3 @@
-import DetailScreen from '@/screen/detail/detail';
+import DetailScreen from '@/screen/detail-screen/detail-screen'
 
-export default DetailScreen;
+export default DetailScreen

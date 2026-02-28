@@ -19,4 +19,4 @@ export const styles = StyleSheet.create({
     itemSeperator: {
         width: scaleWidth(8),
     },
-});
+})

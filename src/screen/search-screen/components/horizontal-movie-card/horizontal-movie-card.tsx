@@ -1,9 +1,9 @@
-import { Pressable, Text, View } from "react-native";
-import { Link } from "expo-router";
+import { Pressable, Text, View } from "react-native"
+import { Link } from "expo-router"
 import { Image } from 'expo-image'
-import { handleImageUrl } from "@/utils/image-helper";
-import { MutlSearch } from "@/models/multi-search";
-import { styles } from "./horizontal-movie-card.styles";
+import { handleImageUrl } from "@/utils/image-helper"
+import { MutlSearch } from "@/models/multi-search"
+import { styles } from "./horizontal-movie-card.styles"
 
 export default function HorizontalMovieCard({ item }: { item: MutlSearch }) {
   const imageUrl = item.backdrop_path ? handleImageUrl(item.backdrop_path) : ""
@@ -35,5 +35,5 @@ export default function HorizontalMovieCard({ item }: { item: MutlSearch }) {
         <Text>{item?.original_name || item?.original_title}</Text>
       </Pressable>
     </Link>
-  );
+  )
 }

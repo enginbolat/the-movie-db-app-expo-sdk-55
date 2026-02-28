@@ -1,38 +1,38 @@
-import { useMovieCastByMovieIdQuery, useMovieDetailsByIdQuery } from '@/hooks/use-movie-request';
-import { handleImageUrl } from '@/utils/image-helper';
-import { Image } from 'expo-image';
-import { useLocalSearchParams } from 'expo-router';
-import { useMemo } from 'react';
-import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
-import { Gesture } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { HorizontalList } from './components';
-import { styles } from './detail.styles';
-import { FlashList } from '@shopify/flash-list';
+import { useMovieCastByMovieIdQuery, useMovieDetailsByIdQuery } from '@/hooks/use-movie-request'
+import { handleImageUrl } from '@/utils/image-helper'
+import { Image } from 'expo-image'
+import { useLocalSearchParams } from 'expo-router'
+import { useMemo } from 'react'
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native'
+import { Gesture } from 'react-native-gesture-handler'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { HorizontalList } from './components'
+import { styles } from './detail-screen.styles'
+import { FlashList } from '@shopify/flash-list'
 
 const LabelAndDescription = ({ label, desc }: { label?: string; desc?: string }) => (
   <View style={styles.row}>
     <Text style={styles.label}>{label}</Text>
     <Text>{desc}</Text>
   </View>
-);
+)
 
 export default function DetailScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
-  const { data, isLoading, error } = useMovieDetailsByIdQuery(id);
-  const { data: movieCast } = useMovieCastByMovieIdQuery(id);
+  const { id } = useLocalSearchParams<{ id: string }>()
+  const { data, isLoading, error } = useMovieDetailsByIdQuery(id)
+  const { data: movieCast } = useMovieCastByMovieIdQuery(id)
 
-  const castGesture = useMemo(() => Gesture.Native(), []);
-  const productionGesture = useMemo(() => Gesture.Native(), []);
-  castGesture.simultaneousWithExternalGesture(productionGesture);
-  productionGesture.simultaneousWithExternalGesture(castGesture);
+  const castGesture = useMemo(() => Gesture.Native(), [])
+  const productionGesture = useMemo(() => Gesture.Native(), [])
+  castGesture.simultaneousWithExternalGesture(productionGesture)
+  productionGesture.simultaneousWithExternalGesture(castGesture)
 
   if (isLoading) {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" />
       </View>
-    );
+    )
   }
 
   if (error || !data) {
@@ -40,10 +40,10 @@ export default function DetailScreen() {
       <View style={[styles.centered, { flex: 1 }]}>
         <Text>{JSON.stringify(error)}</Text>
       </View>
-    );
+    )
   }
 
-  const imageUrl = data.poster_path ? handleImageUrl(data.poster_path) : null;
+  const imageUrl = data.poster_path ? handleImageUrl(data.poster_path) : null
 
   return (
     <ScrollView style={styles.scroll}>
@@ -93,5 +93,5 @@ export default function DetailScreen() {
         />
       </SafeAreaView>
     </ScrollView>
-  );
+  )
 }

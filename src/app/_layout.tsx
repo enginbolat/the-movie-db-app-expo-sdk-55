@@ -1,6 +1,6 @@
-import React from 'react';
-import { Stack } from 'expo-router';
-import RootProvider from '@/providers/RootProvider';
+import React from 'react'
+import { Stack } from 'expo-router'
+import RootProvider from '@/providers/RootProvider'
 
 export default function RootLayout() {
   return (
@@ -11,5 +11,5 @@ export default function RootLayout() {
         <Stack.Screen name="search" options={{ title: '', headerTransparent: true }} />
       </Stack>
     </RootProvider>
-  );
+  )
 }

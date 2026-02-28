@@ -14,7 +14,7 @@ type MovieCardProps = {
 export function MovieCard({ item, onPress }: MovieCardProps) {
   const imageUrl = item.poster_path
     ? handleImageUrl(item.poster_path)
-    : null;
+    : null
 
   const ImagePoster = useCallback(() => {
     if (!imageUrl) return <View style={styles.image} />
@@ -26,7 +26,7 @@ export function MovieCard({ item, onPress }: MovieCardProps) {
       source={{ uri: imageUrl }}
       accessibilityLabel={`${item.title} poster`}
     />
-  }, [imageUrl])
+  }, [imageUrl, item.title])
 
 
   return (
@@ -48,6 +48,6 @@ export function MovieCard({ item, onPress }: MovieCardProps) {
         </Text>
       </Pressable>
     </Link>
-  );
+  )
 }
 

@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { SpacerProps } from "./spacer.types";
+import { StyleSheet } from "react-native"
+import { SpacerProps } from "./spacer.types"
 
 export const useSpacerStyle = ({
   width,
@@ -22,4 +22,4 @@ export const useSpacerStyle = ({
       marginHorizontal: horizontal,
       marginVertical: vertical,
     },
-  });
+  })

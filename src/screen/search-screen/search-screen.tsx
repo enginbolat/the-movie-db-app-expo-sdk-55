@@ -1,19 +1,16 @@
-import { useState, useEffect } from "react";
-import { ActivityIndicator, Pressable, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Image } from 'expo-image'
-import { Link } from "expo-router";
-import { FlashList } from "@shopify/flash-list";
-import { useSearchContentQuery } from "@/hooks/use-movie-request";
-import SearchBar from "@/components/search-bar/search-bar";
-import { MutlSearch } from "@/models/multi-search";
-import { handleImageUrl } from "@/utils/image-helper";
-import { styles } from "./search.styles";
-import HorizontalMovieCard from "./components/horizontal-movie-card/horizontal-movie-card";
-import Spacer from "@/components/spacer/spacer";
-import useDebounce from "@/hooks/use-debounce";
+import { useState, useEffect, useCallback } from "react"
+import { ActivityIndicator, Text } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
+import { FlashList } from "@shopify/flash-list"
+import { useSearchContentQuery } from "@/hooks/use-search-request"
+import useDebounce from "@/hooks/use-debounce"
+import { Spacer, SearchBar } from '@/components'
+import { MutlSearch } from "@/models/multi-search"
+import { styles } from "./search-screen.styles"
+import HorizontalMovieCard from "./components/horizontal-movie-card/horizontal-movie-card"
 
-export default function Search() {
+
+export default function SearchScreen() {
     const [searchTerm, setSearchTerm] = useState('')
     const debouncedSearchTerm = useDebounce(searchTerm, 500)
     const [page, setPage] = useState(1)
@@ -30,16 +27,14 @@ export default function Search() {
         }
     }
 
-    const renderItem = ({ item }: { item: MutlSearch }) => (
-      <HorizontalMovieCard item={item} />
-    );
+    const renderItem = useCallback(({ item }: { item: MutlSearch }) => <HorizontalMovieCard item={item} />, [])
 
     return (
         <SafeAreaView style={styles.container}>
             <SearchBar
                 onChangeText={setSearchTerm}
                 value={searchTerm}
-                style={styles.mh20}
+                style={[styles.mh20, styles.mb12]}
             />
             <FlashList
                 contentContainerStyle={styles.mh20}
@@ -53,7 +48,7 @@ export default function Search() {
                 ListFooterComponent={isLoading ? <ActivityIndicator /> : null}
             />
         </SafeAreaView>
-    );
+    )
 }
 
 
