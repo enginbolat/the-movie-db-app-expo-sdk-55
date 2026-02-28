@@ -1,35 +1,15 @@
 import React from 'react';
-import { useColorScheme, StyleSheet } from 'react-native';
-import { Provider } from 'react-redux';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { NativeTabs } from 'expo-router/unstable-native-tabs';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { store } from '@/store';
-import '../i18n/index'
+import { Stack } from 'expo-router';
+import RootProvider from '@/providers/RootProvider';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <GestureHandlerRootView style={styles.flex}>
-      <Provider store={store}>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <NativeTabs>
-            <NativeTabs.Trigger name="index">
-              <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
-              <NativeTabs.Trigger.Icon
-                src={require('@/assets/images/tabIcons/home.png')}
-                renderingMode="template"
-              />
-            </NativeTabs.Trigger>
-          </NativeTabs>
-        </ThemeProvider>
-      </Provider>
-    </GestureHandlerRootView>
+    <RootProvider>
+      <Stack screenOptions={{ headerBackTitle: '', headerTitle: '' }}>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="movie/[id]" options={{ title: '', headerTransparent: true }} />
+        <Stack.Screen name="search" options={{ title: '', headerTransparent: true }} />
+      </Stack>
+    </RootProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  flex: {
-    flex: 1
-  }
-})

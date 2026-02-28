@@ -1,7 +1,12 @@
+import { AppEndpoints } from '@/constants/endpoints';
+import { CastRoot, MovieDetails, NowPlayingRoot, RootPopular } from '@/models/index';
+import { MutlSearchRoot } from '@/models/multi-search';
+import { api } from '@/store/slice/request';
 
-import { AppEndpoints } from '../constants/endpoints';
-import { CastRoot, MovieDetails, NowPlayingRoot, RootPopular } from '../models/index';
-import { api } from '../store/slice/request';
+type SearchContentSearchType = {
+  page: number,
+  searchTerm: string
+}
 
 export const movieApi = api.injectEndpoints({
   endpoints: build => ({
@@ -35,6 +40,23 @@ export const movieApi = api.injectEndpoints({
         method: AppEndpoints.upcomingMovie(page).method,
       }),
     }),
+    searchContent: build.query<MutlSearchRoot, SearchContentSearchType>({
+      query: ({ page, searchTerm }) => ({
+        url: AppEndpoints.searchContent(searchTerm, page).url,
+        method: AppEndpoints.searchContent(searchTerm, page).method,
+      }),
+      serializeQueryArgs: ({ queryArgs }) => queryArgs.searchTerm,
+      merge: (currentCache, newItems) => {
+        if (newItems.page === 1) {
+          currentCache.results = newItems.results;
+        } else {
+          currentCache.results.push(...newItems.results);
+        }
+        currentCache.page = newItems.page;
+        currentCache.total_pages = newItems.total_pages;
+      },
+      forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
+    })
   }),
   overrideExisting: false,
 });
@@ -45,4 +67,5 @@ export const {
   useMovieCastByMovieIdQuery,
   useNowPlayingMovieQuery,
   useUpcomingMovieQuery,
+  useSearchContentQuery
 } = movieApi;

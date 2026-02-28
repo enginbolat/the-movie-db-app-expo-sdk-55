@@ -1,0 +1,1 @@
+export const handleImageUrl = (posterPath: string) => process.env.EXPO_PUBLIC_BASE_W500_URL + posterPath 

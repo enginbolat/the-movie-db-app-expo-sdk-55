@@ -20,7 +20,7 @@ export const AppEndpoints = {
         method: 'GET',
     }),
     searchContent: (query: string, page: number = 1) => ({
-        url: `/3/search/movie?query=${query}&include_adult=true&language=en-US&page=${page}`,
+        url: `/3/search/multi?query=${query}&include_adult=true&language=en-US&page=${page}`,
         method: 'GET',
     }),
 };

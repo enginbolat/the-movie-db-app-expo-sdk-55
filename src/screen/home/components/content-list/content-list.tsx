@@ -2,6 +2,7 @@ import { useCallback, RefObject } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native'
 import { FlashList } from '@shopify/flash-list';
 import { NativeViewGestureHandler } from 'react-native-gesture-handler';
+import { router } from 'expo-router';
 import { Popular } from '@/models';
 import { MovieCard } from '@/components';
 import { styles } from './content-list.styles';
@@ -16,7 +17,9 @@ type Props = {
 
 export function ContentList({ data, isLoading, title, handlerRef, simultaneousHandlers }: Props) {
 
-  const renderItem = useCallback(({ item }: { item: Popular }) => <MovieCard item={item} onPress={() => { }} />, [],);
+  const renderItem = useCallback(({ item }: { item: Popular }) => (
+    <MovieCard item={item} onPress={(movie) => router.push(`/movie/${movie.id}`)} />
+  ), []);
 
   return (
     <>
@@ -34,7 +37,6 @@ export function ContentList({ data, isLoading, title, handlerRef, simultaneousHa
           keyExtractor={(item) => item.id.toString()}
           ListEmptyComponent={isLoading ? <ActivityIndicator /> : undefined}
           horizontal
-          estimatedItemSize={160}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.ph20}
